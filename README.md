@@ -1,6 +1,45 @@
-# Getting Started with Create React App
+<p align="center">
+  <img style="border-width: 0" width="400" height="400" src="./src/assets/logo.png" alt="Memes App logo">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Memes App
+
+A ReactJS and Firebase based meme application to list, add, edit and delete your favourite memes.
+
+---
+
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/debajit13/Memes-App/graphs/commit-activity) [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/debajit13/Memes-App/discussions/1) [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
+
+## Features
+
+You can:
+
+- Add a meme
+- Edit a meme
+- Delete a meme
+- Show all memes
+
+## Technologies Used
+
+- ReactJS
+- Bootstrap
+- Firebase
+
+## Project Setup
+
+To setup the project in your local -
+
+1. create a firebase account and create a firestore database.
+1. Make it production mode and set the rules to true for read and write.
+1. Create a collection with the name **memes**.
+1. Then take the firebase config values and put it in an env file with the keys present in the firebase.config.js file.
+
+## Screenshots
+
+<img src="./src/assets/firebase.png" height='500px'>
+<img src="./src/assets/screenshot1.png" height='500px'>
+<img src="./src/assets/screenshot2.png" height='500px'>
+<img src="./src/assets/screenshot3.png" height='500px'>
 
 ## Available Scripts
 
