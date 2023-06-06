@@ -13,27 +13,33 @@ import { useEffect, useState } from 'react';
 import EditMemeModal from './components/EditMemeModal';
 import AddMemeModal from './components/AddMemeModal';
 
+// ------------ structure of a meme data ----------------
+interface Memes {
+  id: string;
+  title: string;
+}
+
 const App = () => {
   const memesCollectionReference = collection(db, 'memes');
-  const [memes, setMemes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [existingTitle, setExistingTitle] = useState('');
-  const [editMemeItemId, setEditMemeItemId] = useState('');
+  const [memes, setMemes] = useState<Memes[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [existingTitle, setExistingTitle] = useState<string>('');
+  const [editMemeItemId, setEditMemeItemId] = useState<string>('');
 
   // ------------ function to get all memes ---------------------
   const getMemesHandler = async () => {
     setIsLoading(true);
     const memesSnapShot = await getDocs(memesCollectionReference);
-    const newMemes = memesSnapShot.docs.map((doc) => ({
+    const newMemes: Memes[] = memesSnapShot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
-    }));
+    })) as Memes[];
     setMemes([...newMemes]);
     setIsLoading(false);
   };
 
   // -------------- function to add new memes ---------------------
-  const addMemeHandler = async (newMeme) => {
+  const addMemeHandler = async (newMeme: string) => {
     await addDoc(memesCollectionReference, {
       title: newMeme,
     });
@@ -41,14 +47,14 @@ const App = () => {
   };
 
   // --------------- function to execute on opening the edit meme modal -----------------
-  const editMemeHandler = (id, title) => {
+  const editMemeHandler = (id: string, title: string) => {
     setExistingTitle('');
     setExistingTitle(title);
     setEditMemeItemId(id);
   };
 
   // --------------- function to edit an existing meme ------------------------
-  const submitEditMemeHandler = async (newTitle) => {
+  const submitEditMemeHandler = async (newTitle: string) => {
     const memeReference = doc(db, 'memes', editMemeItemId);
     await updateDoc(memeReference, {
       title: newTitle,
@@ -57,7 +63,7 @@ const App = () => {
   };
 
   // ------------------ function to delete a meme ---------------------
-  const deleteMemeHandler = async (id) => {
+  const deleteMemeHandler = async (id: string) => {
     const result = window.confirm('Are you sure to delete this meme?');
     if (result) {
       const memeReference = doc(db, 'memes', id);
