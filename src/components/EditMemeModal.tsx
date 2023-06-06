@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react';
 
-const AddMemeModal = ({ submitMemeHandler }) => {
-  const [meme, setMeme] = useState('');
-  const [isError, setIsError] = useState(false);
+interface EditMemeModalData {
+  submitMemeHandler: (meme: string) => void;
+  existingTitle?: string;
+}
 
-  const submitMeme = () => {
-    if (!isError) {
-      submitMemeHandler(meme);
-      setMeme('');
+const EditMemeModal: React.FC<EditMemeModalData> = ({
+  submitMemeHandler,
+  existingTitle,
+}) => {
+  const [meme, setMeme] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (existingTitle) {
+      setMeme(existingTitle);
     }
-  };
+  }, [existingTitle]);
 
   useEffect(() => {
     if (meme.length > 0) {
@@ -19,12 +26,19 @@ const AddMemeModal = ({ submitMemeHandler }) => {
     }
   }, [meme]);
 
+  const submitMeme = () => {
+    if (!isError) {
+      submitMemeHandler(meme);
+      setMeme('');
+    }
+  };
+
   return (
     <div
       className='modal fade'
-      id='addMemeModal'
-      tabIndex='-1'
-      aria-labelledby='addMemeModalLabel'
+      id='editMemeModal'
+      tabIndex={-1}
+      aria-labelledby='editMemeModalLabel'
       aria-hidden='true'
       data-bs-backdrop='static'
       data-bs-keyboard='false'
@@ -32,7 +46,7 @@ const AddMemeModal = ({ submitMemeHandler }) => {
       <div className='modal-dialog'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <h5 className='modal-title'>Add Meme</h5>
+            <h5 className='modal-title'>Edit Meme</h5>
           </div>
           <div className='modal-body'>
             <input
@@ -58,7 +72,7 @@ const AddMemeModal = ({ submitMemeHandler }) => {
               data-bs-dismiss={!isError && 'modal'}
               disabled={isError ? true : false}
             >
-              Add Meme
+              Save changes
             </button>
           </div>
         </div>
@@ -67,4 +81,4 @@ const AddMemeModal = ({ submitMemeHandler }) => {
   );
 };
 
-export default AddMemeModal;
+export default EditMemeModal;
