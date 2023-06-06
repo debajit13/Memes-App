@@ -1,4 +1,17 @@
-const MemeCard = ({ title, id, deleteMemeHandler, editMemeHandler }) => {
+// ---------------- structure of a MemeCard data ------------------
+interface MemeCardData {
+  title: string;
+  id: string;
+  deleteMemeHandler: (id: string) => void;
+  editMemeHandler: (id: string, title: string) => void;
+}
+
+const MemeCard: React.FC<MemeCardData> = ({
+  title,
+  id,
+  deleteMemeHandler,
+  editMemeHandler,
+}) => {
   return (
     <div className='card w-100 mb-3'>
       <div className='card-body d-flex justify-content-between align-items-center w-100'>
